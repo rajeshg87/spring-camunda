@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1742zc6" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.1.2">
+  <bpmn:process id="IndiaMatch" name="Watch India Match" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_0cmufoq</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0cmufoq" sourceRef="StartEvent_1" targetRef="PickTeam" />
+    <bpmn:userTask id="PickTeam" name="Pick a team">
+      <bpmn:incoming>SequenceFlow_0cmufoq</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0c8kolo</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_16dha47" name="What team did you pick" default="SequenceFlow_19qpwag">
+      <bpmn:incoming>SequenceFlow_0c8kolo</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0f0e1qz</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_19qpwag</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_0c8kolo" sourceRef="PickTeam" targetRef="ExclusiveGateway_16dha47" />
+    <bpmn:sequenceFlow id="SequenceFlow_0f0e1qz" name="India" sourceRef="ExclusiveGateway_16dha47" targetRef="WatchBatting">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{teamName == 'India'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="WatchBatting" name="Watch Sachin &#38; Kohli batting">
+      <bpmn:incoming>SequenceFlow_0f0e1qz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0mk27vz</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_0vqrihe">
+      <bpmn:incoming>SequenceFlow_19qpwag</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_19qpwag" sourceRef="ExclusiveGateway_16dha47" targetRef="EndEvent_0vqrihe" />
+    <bpmn:sequenceFlow id="SequenceFlow_0mk27vz" sourceRef="WatchBatting" targetRef="EndEvent_1ow1q1i" />
+    <bpmn:endEvent id="EndEvent_1ow1q1i">
+      <bpmn:incoming>SequenceFlow_0mk27vz</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="IndiaMatch">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0cmufoq_di" bpmnElement="SequenceFlow_0cmufoq">
+        <di:waypoint x="215" y="177" />
+        <di:waypoint x="265" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0koxgqf_di" bpmnElement="PickTeam">
+        <dc:Bounds x="265" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_16dha47_di" bpmnElement="ExclusiveGateway_16dha47" isMarkerVisible="true">
+        <dc:Bounds x="415" y="152" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="405" y="209" width="71" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0c8kolo_di" bpmnElement="SequenceFlow_0c8kolo">
+        <di:waypoint x="365" y="177" />
+        <di:waypoint x="415" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0f0e1qz_di" bpmnElement="SequenceFlow_0f0e1qz">
+        <di:waypoint x="440" y="152" />
+        <di:waypoint x="440" y="84" />
+        <di:waypoint x="504" y="84" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="443" y="115" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0v12dcv_di" bpmnElement="WatchBatting">
+        <dc:Bounds x="504" y="44" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0vqrihe_di" bpmnElement="EndEvent_0vqrihe">
+        <dc:Bounds x="643" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_19qpwag_di" bpmnElement="SequenceFlow_19qpwag">
+        <di:waypoint x="465" y="177" />
+        <di:waypoint x="643" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0mk27vz_di" bpmnElement="SequenceFlow_0mk27vz">
+        <di:waypoint x="604" y="84" />
+        <di:waypoint x="643" y="84" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1tni67e_di" bpmnElement="EndEvent_1ow1q1i">
+        <dc:Bounds x="643" y="66" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
